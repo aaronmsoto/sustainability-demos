@@ -1,5 +1,5 @@
 # sustainability-demos
-A repo to publish demonstrations on how to leverage cloud technologies to help solve sustainability challenges. The first demo is coming soon (Oct 2023) and hopefully others follow!
+A repo to publish demonstrations on how to leverage cloud technologies to help solve sustainability challenges. The first demo is coming soon (Oct 2023) and others will follow!
 
 ## Demo 01: Large-scale Emissions Calculations via AWS Guidance for Carbon Data Lake
 #### Status: Coming Oct 2023
