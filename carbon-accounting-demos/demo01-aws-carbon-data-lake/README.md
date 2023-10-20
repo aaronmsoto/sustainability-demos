@@ -1,6 +1,14 @@
 # Demo 01: Cloud-scale Fleet Emissions Estimates via Core AWS Services and AWS Carbon Data Lake
 
 ## Overview
+
+Transportation is the second leading cause of global greenhouse gas (GHG) emissions accounting for 8.43 billion MT of carbon dioxide equivalent emissions (CO2e), behind only electricity and heat generation. Most of the transportation emissions are attributable to road transportation from cars and trucks. Fleet managers responsible for large fleets need to understand their fleet emissions and how to potentially cut carbon and costs from these fleets over time. The growing transition from fossil fuel based vehicles towards battery-electric vehicles (BEV) will help reduce emissions and drive down operational costs over time. Fleet managers should look to quantify the expected effects of potential fleet decarbonization projects as they relate to quantifiable carbon and cost reduction.
+
+This carbon accounting demo will work through a scenario that processes a massive fleet dataset to understand carbon and cost tradeoffs and how one might estimate the benefits of potential fleet decarbonization projects.
+
+![Global GHG Emissions by Sector, 2019](assets/imgs/dataviz_ghg-emissions-by-sector-2019.png)
+
+### Demo Scenario: Situation, Task, Actions, Results, and Impact...
 **Situation:** Imagine we run a massive fleet organization (eg: NYC YellowCab) and want to analyze fleet characteristics by vehicle types, efficiency differences, fuel costs, and carbon dioxide (CO2) emissions.\
 **Task:** Use the open-source New York City YellowCab ride records for 2022 (~39M rides) to create a multi-stage data lake that prepares data for analysis.\
 **Actions:** Copy relevant 2022 YellowCab data to our LANDING zone, run a transformation to supplement data within our TRANSFORMED zone, and create an aggregated dataset for analysis within our PROCESSED zone. Finally, perform ad-hoc analysis queries and optionally run our aggregated ride activity data through AWS Carbon Data Lake for emissions calculations.\
@@ -20,11 +28,11 @@ Here are example Excel visualizations for some of the analytics you can visualiz
 **Experience Prerequisites:** Familiarity with AWS, common AWS services, navigating the AWS Console, and similar abilities.
 
 **Sections...**
-* Section 01: S3 Bucket Setup and Source Data Transfer to LANDING Zone
-* Section 02: Setting Up Landing Zone Data Resources
-* Section 03: Creating Transformed Zone Lookup Table and Rides Data
-* Section 04: Creating Processed Zone Aggregated Rides Data
-* Section 05: Using AWS Carbon Data Lake (CDL) for Emissions Estimates
+* [Section 01: S3 Bucket Setup and Source Data Transfer to LANDING Zone](#section-01-s3-bucket-setup-and-source-data-transfer-to-landing-zone)
+* [Section 02: Setting Up Landing Zone Data Resources](#section-02-setting-up-landing-zone-data-resources)
+* [Section 03: Creating Transformed Zone Lookup Table and Rides Data](#section-03-creating-transformed-zone-lookup-table-and-rides-data)
+* [Section 04: Creating Processed Zone Aggregated Rides Data](#section-04-creating-processed-zone-aggregated-rides-data)
+* [Section 05: Using AWS Carbon Data Lake (CDL) for Emissions Estimates](#section-05-using-aws-carbon-data-lake-cdl-for-emissions-estimates)
 
 **Demo Architecture Created...**
 
