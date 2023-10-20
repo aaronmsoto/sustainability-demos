@@ -26,9 +26,9 @@ Here are example Excel visualizations for some of the analytics you can visualiz
 * Section 04: Creating Processed Zone Aggregated Rides Data
 * Section 05: Using AWS Carbon Data Lake (CDL) for Emissions Estimates
 
-**Demo Architecture...**
+**Demo Architecture Created...**
 
-[TODO: architecture diagram goes here]
+![Demo Architecture Overview](assets/imgs/demo01_architecture-overview.png)
 
 ## Section 01: S3 Bucket Setup and Source Data Transfer to LANDING Zone
 **Source Data:** New York City YellowCab ride records for 2022\
