@@ -28,7 +28,7 @@ Here are example Excel visualizations for some of the analytics you can visualiz
 
 **Demo Architecture...**
 
-[architecture diagram goes here]
+[TODO: architecture diagram goes here]
 
 ## Section 01: S3 Bucket Setup and Source Data Transfer to LANDING Zone
 **Source Data:** New York City YellowCab ride records for 2022\
@@ -50,7 +50,7 @@ Note that screenshots for this demo will use us-west-2.
 ### Step 01-C: Open AWS CloudShell
 AWS CloudShell is an easy way to run AWS CLI commands within the AWS Console. Click the AWS CloudShell icon at the top of your console as shown below.
 
-[CloudShell Screenshot]
+![CloudShell Screenshot](assets/imgs/cloudshell_open-shell.png)
 
 ### Step 01-D: Copy Source Data to Target LANDING Zone
 
@@ -70,7 +70,7 @@ aws s3 sync "s3://nyc-tlc/trip data/" "s3://YOURBUCKETNAME/LANDING/nycyellowcabr
 
 You should get a result similar to the following. Note that I also added a "carbon-accounting" prefix folder because I use this bucket for multiple demos, but you can omit this.
 
-[s3 sync screenshot]
+![S3 sync (copy)](assets/imgs/s3_nyc-tlc_copy-source-to-landing-zone.png)
 
 ### Section 01 SUMMARY
 
@@ -92,7 +92,7 @@ Within your AWS Console, navigate to AWS Glue, then Crawlers. For each step belo
 ##### Wizard Step 1: Set crawler properties...
 * Enter a crawler name and click **Next**
 
-[STEP 1]
+![Create Crawler Step 1](assets/imgs/glue_create-landing-crawler_01.png)
 
 ##### Wizard Step 2: Click **Add a data source** and complete the form per the following...
 * Data source: s3 (default)
@@ -103,14 +103,14 @@ Within your AWS Console, navigate to AWS Glue, then Crawlers. For each step belo
 * Click the **Add an S3 data source** button
 * Click **Next** to continue to Step 3...
 
-[STEP 2]
+![Create Crawler Step 2](assets/imgs/glue_create-landing-crawler_02.png)
 
 ##### Wizard Step 3: Configure security settings...
 * Choose **Create new IAM role**
 * Enter a new role name, eg: AWSGlueServiceRole-sustainabilitydemos
 * Click **Next** to continue to Step 4...
 
-[STEP 3]
+![Create Crawler Step 3](assets/imgs/glue_create-landing-crawler_03.png)
 
 ##### Wizard Step 4: Set output and scheduling...
 * Choose **Add database** (this will open a new browser tab)
@@ -123,19 +123,19 @@ Within your AWS Console, navigate to AWS Glue, then Crawlers. For each step belo
 * Leave all other defaults (ie: "On demand" Crawler schedule)
 * Click **Next** to continue to Step 5...
 
-[STEP 4]
+![Create Crawler Step 4](assets/imgs/glue_create-landing-crawler_04.png)
 
 ##### Wizard Step 5: Review and create...
 * Review your settings and click **Create crawler**
 
-[STEP 5]
+![Create Crawler Step 5](assets/imgs/glue_create-landing-crawler_05.png)
 
 ### Step 02-B: Run your new AWS Glue Crawler
 
 * Click the **Run crawler** button
 * Review output to confirm "1 table change, 0 partition changes" (see bottom-right below)
 
-[RUN CRAWLER IMAGE]
+![Run Crawler](assets/imgs/filename.png)
 
 ### Step 02-C: Preview your LANDING zone table in Amazon Athena
 
@@ -151,7 +151,7 @@ Within your AWS Console, navigate to AWS Glue, then Crawlers. For each step belo
 * Verify that your query editor is showing you 10 rows from your table (see screenshot below)
 * Explore the data and, if desired, review the [NYC YellowCab data documentation...](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf)
 
-[Athena Preview Table]
+![Athena Preview Table](assets/imgs/filename.png)
 
 ### Section 02 SUMMARY
 * We used an AWS Glue Crawler to scan our LANDING Zone YellowCab data
@@ -193,7 +193,7 @@ AS
 );
 ```
 
-[Athena Create Lookup]
+![Athena Create Vehicle Types Lookup Table](assets/imgs/athena_create-transformed-vehicletypes.png)
 
 We can also preview the newly formed table to check that it looks correct.
 
@@ -201,7 +201,7 @@ We can also preview the newly formed table to check that it looks correct.
 SELECT * FROM "sustainability-demos"."transformed_vehicletypes" limit 10;
 ```
 
-[Athena Preview Transformed Lookup]
+![Athena Preview Vehicle Types Lookup Table](assets/imgs/athena_preview-transformed-lookup.png)
 
 Note that you can optionally go look within Amazon S3 to find your new **vehicletypes** subfolder within your TRANSFORMED folder where the new physical parquet data file is created.
 
@@ -256,7 +256,7 @@ WHERE   year(r.tpep_pickup_datetime) = 2022
         AND r.fare_amount > 0.1;
 ```
 
-[Athena Create Transformed]
+![Athena Create Transformed Zone Rides Detail Table](assets/imgs/athena_create-transformed-table.png)
 
 More Info: [AWS Docs for Athena Create Table as Select (CTAS)](https://docs.aws.amazon.com/athena/latest/ug/ctas.html)
 
@@ -272,15 +272,7 @@ GROUP BY vehicle_type
 ORDER BY 2 DESC, 1;
 ```
 
-Results...
-```
-#	vehicle_type	record_count
-1	gas	27615049
-2	dsl	5744461
-3	bev	5365847
-```
-
-[Athena Query Transformed]
+![Athena Query Transformed Zone Rides Detail Table (1 of 2)](assets/imgs/athena_query-transformed-table.png)
 
 Let's also take a look at a subset of the detailed row data. You should note that because this data is stored in the compressed, columnar parquet format, queries that can leverage our partitions only need to scan the relevant partition files and columns within the files making for significantly more efficient and less costly queries.
 
@@ -293,7 +285,7 @@ ORDER BY 1, 2
 LIMIT 100;
 ```
 
-[Athena Query Transformed 2]
+![Athena Query Transformed Zone Rides Detail Table (2 of 2)](assets/imgs/athena_query-transformed-table-2.png)
 
 ### Step 03-C: View Transformed Data in Amazon S3
 
@@ -304,7 +296,7 @@ eg: navigate to s3://YOURBUCKETNAME/TRANSFORMED/ridesdetail/
 
 Within that folder, you should see a subfolder for year=2022 and within that are 12 subfolders for each month as shown below.
 
-[S3 View Transformed]
+![S3 View Transformed](assets/imgs/s3_view-transformed-data.png)
 
 ### Section 03 SUMMARY
 * We created a lookup table within our TRANSFORMED zone
@@ -352,7 +344,7 @@ group by r.year, r.month, t.vehicle_type, r.vehicle_id, t.power_train, t.resourc
 order by 1;
 ```
 
-[Athena Create Processed]
+![Athena Create Processed Zone Rides Aggregated Table](assets/imgs/athena_create-processed-table.png)
 
 ### Step 04-B: Preview PROCESSED Zone Aggregated Ride Table
 
@@ -362,7 +354,7 @@ As before, we can see the new table within our database and use the **Preview Ta
 SELECT * FROM "sustainability-demos"."processed_ridesaggregated" limit 10;
 ```
 
-[Athena Preview Processed]
+![Athena Preview Processed Zone Rides Aggregated Table](assets/imgs/athena_preview-processed-table.png)
 
 ### Step 04-C: Run Some Query Analytics on PROCESSED Zone Aggregated Ride Table
 
@@ -383,7 +375,7 @@ GROUP BY year, month, vehicle_type, resource_unit, efficiency_unit
 ORDER BY 1, 2, 3;
 ```
 
-[Athena Query Analytics 1]
+![Athena Rides Aggregated Query Analytics 1](assets/imgs/athena_query-analytics1.png)
 
 ##### Query 2: Query totals and averages by vehicle type for all of 2022
 We can get totals and averages over the entire 2022 dataset using this query yielding three records (one per vehicle_type). Note that the trip_distance_avg for our bev vehicle_type is significantly higher than for gas or dsl vehicles.
@@ -400,7 +392,7 @@ GROUP BY vehicle_type, resource_unit, efficiency_unit
 ORDER BY 1;
 ```
 
-[Athena Query Analytics 2]
+![Athena Rides Aggregated Query Analytics 2](assets/imgs/athena_query-analytics2.png)
 
 ##### Query 3: Min, Avg, and Max efficiency values by vehicle_type
 Let's now query the MIN and MAX efficiencies, in addition to our weighted-average, for each vehicle_type.
@@ -416,7 +408,7 @@ GROUP BY vehicle_type, efficiency_unit
 ORDER BY 1;
 ```
 
-[Athena Query Analytics 3]
+![Athena Rides Aggregated Query Analytics 3](assets/imgs/athena_query-analytics3.png)
 
 ##### Query 4a and 4b: Carbon Dioxide (CO2) emissions, carbon intensity, and costs metrics by vehicle_type
 Later sections of this workshop, and sections in future workshops, will run this fleet activity data through carbon emissions estimation tools so that we can analyze emissions related to this fleet activity.
@@ -477,11 +469,11 @@ SELECT  *
 FROM    processed_ridesanalysis_view;
 ```
 
-[Athena Query Analytics 4]
+![Athena Rides Aggregated Query Analytics 4](assets/imgs/athena_query-analytics4.png)
 
 An example Excel visualization for our query analytics is below.
 
-[Excel Analysis Overview]
+![Excel Overview Analysis](assets/imgs/excel_overview-analysis.png)
 
 ##### Query 5a, 5b, and 5c: Quantify cost and carbon savings associated with potential fleet optimizations
 
@@ -530,7 +522,7 @@ FROM    processed_projectanalysis_view;
 
 Project Savings Results...
 
-[Athena Query Analytics 5]
+![Athena Rides Aggregated Query Analytics 5](assets/imgs/athena_query-analytics5.png)
 
 
 ### Section 04 SUMMARY
@@ -548,7 +540,7 @@ However, most organizations are looking to automate and otherwise mature their e
 
 For organizations wanting to build their own solution, or perhaps use pieces of the following solution as part of a commercial solution, we will now explore the **[Guidance for Carbon Data Lake on AWS](https://aws.amazon.com/solutions/guidance/carbon-data-lake-on-aws/)** (this is the official name for what I've been calling AWS Carbon Data Lake).
 
-[AWS CDL Architecture]
+![AWS Carbon Data Lake Architecture](assets/imgs/aws_carbon-data-lake_architecture.png)
 
 ### Step 05-A: Deploy AWS Carbon Data Lake Resources
 
@@ -621,7 +613,7 @@ where  r.year = 2022
 order by 1;
 ```
 
-[Athena Create RidesCDLView]
+![Athena Create Rides CDL View](assets/imgs/athena_create-ridescdlview.png)
 
 ##### Create CDL-specific Table w/ Underlying CSV Data in CDL S3 Landing Bucket
 
@@ -658,7 +650,7 @@ WHERE   r.year=2022
 order by 1 DESC;
 ```
 
-[Athena Create CDL Activity]
+![Athena Create CDL Activity](assets/imgs/athena_create-cdlactivity.png)
 
 Once you run this query, the automated data pipeline will take a few minutes to perform all of the above steps.
 
@@ -669,7 +661,7 @@ If you go to AWS Step Functions and open the **cdl-data-pipeline-sfn** state mac
 If you click on that execution, you should see the workflow progressing and it will look like the following if it runs successfully.
 (depending on how fast you go through this step, the workflow may be complete already)
 
-[Step Functions cdl-data-pipeline-sfn]
+![Step Functions Execution Graph View for cdl-data-pipeline-sfn](assets/imgs/stepfunctions_cdl-data-pipeline-sfn.png)
 
 ### Step 05-D: Create New CDL Activity View and Query Emissions
 
@@ -705,7 +697,7 @@ GROUP BY scope, category, activity
 ORDER BY 1,2,3;
 ```
 
-[Athena Query CDL Activity All 2022]
+![Athena Query CDL Activity All 2022](assets/imgs/athena_query-cdlactivity-all2022.png)
 
 You might recognize that these emissions totals are very similar to what we queried in Step 04-C Quert 4b (repeated below). The slight differences would be due to slightly differing emissions factors being used between the sources from our ad-hoc queries and the emissions factors table included within the AWS CDL repo. You can view (and edit) the following AWS CDL CSV file before deployment, if you wanted to make any emissions factors changes:
 /tools/reference-databases/ghg_emissionsfactor_comprehensive_adapted.csv
@@ -726,7 +718,7 @@ GROUP BY origin_measurement_timestamp, scope, category, activity
 ORDER BY 1, 2;
 ```
 
-[Athena Query CDL Activity 2022 by Month]
+![Athena Query CDL Activity 2022 by Month](assets/imgs/athena_query-cdlactivity-2022bymonth.png)
 
 ### Step 05-E: Download Results and Create Excel Chart
 
@@ -746,7 +738,7 @@ To keep things simple, let's download the 36-record CSV and do a quick analysis 
 Feel free to play around with your analysis or formatting, but you should get a visualization like the following:\
 (Note that I formatted the numbers with commas and changed the default color scheme.)
 
-[Excel CDL Final Analysis]
+![Excel Carbon Data Lake Analysis](assets/imgs/excel_cdl-final-visualization.png)
 
 ### Section 05 SUMMARY
 
