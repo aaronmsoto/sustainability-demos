@@ -1,5 +1,13 @@
 # Demo 01: Cloud-scale Fleet Emissions Estimates via Core AWS Services and AWS Carbon Data Lake
 
+**Demo Sections...**
+* [Overview](#overview)
+* [Section 01: S3 Bucket Setup and Source Data Transfer to LANDING Zone](#section-01-s3-bucket-setup-and-source-data-transfer-to-landing-zone)
+* [Section 02: Setting Up Landing Zone Data Resources](#section-02-setting-up-landing-zone-data-resources)
+* [Section 03: Creating Transformed Zone Lookup Table and Rides Data](#section-03-creating-transformed-zone-lookup-table-and-rides-data)
+* [Section 04: Creating Processed Zone Aggregated Rides Data](#section-04-creating-processed-zone-aggregated-rides-data)
+* [Section 05: Using AWS Carbon Data Lake (CDL) for Emissions Estimates](#section-05-using-aws-carbon-data-lake-cdl-for-emissions-estimates)
+
 ## Overview
 
 Transportation is the second leading cause of global greenhouse gas (GHG) emissions accounting for 8.43 billion MT of carbon dioxide equivalent emissions (CO2e), behind only electricity and heat generation. Most of the transportation emissions are attributable to road transportation from cars and trucks. Fleet managers responsible for large fleets need to understand their fleet emissions and how to potentially cut carbon and costs from these fleets over time. The growing transition from fossil fuel based vehicles towards battery-electric vehicles (BEV) will help reduce emissions and drive down operational costs over time. Fleet managers should look to quantify the expected effects of potential fleet decarbonization projects as they relate to quantifiable carbon and cost reduction.
@@ -26,13 +34,6 @@ Here are example Excel visualizations for some of the analytics you can visualiz
 (See the [GitHub repo for AWS Carbon Data Lake](https://github.com/aws-solutions-library-samples/guidance-for-carbon-data-lake-on-aws) for details on that solution guidance.)
 
 **Experience Prerequisites:** Familiarity with AWS, common AWS services, navigating the AWS Console, and similar abilities.
-
-**Sections...**
-* [Section 01: S3 Bucket Setup and Source Data Transfer to LANDING Zone](#section-01-s3-bucket-setup-and-source-data-transfer-to-landing-zone)
-* [Section 02: Setting Up Landing Zone Data Resources](#section-02-setting-up-landing-zone-data-resources)
-* [Section 03: Creating Transformed Zone Lookup Table and Rides Data](#section-03-creating-transformed-zone-lookup-table-and-rides-data)
-* [Section 04: Creating Processed Zone Aggregated Rides Data](#section-04-creating-processed-zone-aggregated-rides-data)
-* [Section 05: Using AWS Carbon Data Lake (CDL) for Emissions Estimates](#section-05-using-aws-carbon-data-lake-cdl-for-emissions-estimates)
 
 **Demo Architecture Created...**
 
