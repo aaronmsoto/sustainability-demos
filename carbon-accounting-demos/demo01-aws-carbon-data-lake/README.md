@@ -56,11 +56,13 @@ AWS CloudShell is an easy way to run AWS CLI commands within the AWS Console. Cl
 
 Perform these commands within your AWS CloudShell terminal.
 
-Use the following command to list the source data files we'll copy.
+Use the following command to list the source data files we'll copy. You should see 12 parquet files.
 
 ```
 aws s3 ls "s3://nyc-tlc/trip data/yellow_tripdata_2022"
 ```
+
+![S3 list NYC YellowCab Parquet Files](assets/imgs/cloudshell_s3-list-yellowcab.png)
 
 Use the following command to copy the source data to your target LANDING zone location created as part of this step.
 
@@ -70,7 +72,7 @@ aws s3 sync "s3://nyc-tlc/trip data/" "s3://YOURBUCKETNAME/LANDING/nycyellowcabr
 
 You should get a result similar to the following. Note that I also added a "carbon-accounting" prefix folder because I use this bucket for multiple demos, but you can omit this.
 
-![S3 sync (copy)](assets/imgs/s3_nyc-tlc_copy-source-to-landing-zone.png)
+![S3 sync (copy) NYC YellowCab Parquet Files](assets/imgs/s3_nyc-tlc_copy-source-to-landing-zone.png)
 
 ### Section 01 SUMMARY
 
@@ -135,7 +137,7 @@ Within your AWS Console, navigate to AWS Glue, then Crawlers. For each step belo
 * Click the **Run crawler** button
 * Review output to confirm "1 table change, 0 partition changes" (see bottom-right below)
 
-![Run Crawler](assets/imgs/filename.png)
+![Run Crawler](assets/imgs/glue_run-landing-crawler.png)
 
 ### Step 02-C: Preview your LANDING zone table in Amazon Athena
 
@@ -151,7 +153,7 @@ Within your AWS Console, navigate to AWS Glue, then Crawlers. For each step belo
 * Verify that your query editor is showing you 10 rows from your table (see screenshot below)
 * Explore the data and, if desired, review the [NYC YellowCab data documentation...](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf)
 
-![Athena Preview Table](assets/imgs/filename.png)
+![Athena Preview Table](assets/imgs/athena_preview-landing-table.png)
 
 ### Section 02 SUMMARY
 * We used an AWS Glue Crawler to scan our LANDING Zone YellowCab data
@@ -425,7 +427,7 @@ Mobile Combustion and Electricity CO2 Emissions Factors to use within our query.
 
 Costs per Resource Unit to use within our query...\
 (sourced from [US Energy Information Administration](https://www.eia.gov/dnav/pet/pet_pri_gnd_dcus_r1y_a.htm) and the [Official NY State Website](https://www.nyserda.ny.gov/Energy-Prices/Electricity/Monthly-Avg-Electricity-Commercial))
-* bev => 0.182 USD per kwh (commercial rate average of 18.2 cents per kwh)
+* bev => 0.182 USD per kwh (Central Atlantic commercial rate average of 18.2 cents per kwh)
 * dsl => 5.354 USD per gal
 * gas => 4.185 USD per gal
 
@@ -471,7 +473,7 @@ FROM    processed_ridesanalysis_view;
 
 ![Athena Rides Aggregated Query Analytics 4](assets/imgs/athena_query-analytics4.png)
 
-An example Excel visualization for our query analytics is below.
+An example Excel visualization for our query analytics is below. [Download Excel File...](assets/docs/rides_analysis_overview.xlsx)
 
 ![Excel Overview Analysis](assets/imgs/excel_overview-analysis.png)
 
@@ -591,9 +593,13 @@ It should look like the following when you are done.
 One of the many resources deployed by AWS Carbon Data Lake is an Amazon S3 bucket used to land and ingest incoming data. It will be named something like the following:\
 **datapipelinestack-landingbucketXXXXXXXX-XXXXXXXXXXXX** (make note of this bucket name)
 
+This section will create a new view formatted in the required CDL input csv format and then use a CREATE TABLE statement to generate this required CSV file within the CDL landing bucket to kick off the automated data processing pipeline.
+
+If you did NOT complete the earlier sections of this demo successfully, you can instead manually upload this [cdl-input_rides-activity.csv](assets/docs/cdl-input_rides-activity.csv) file to the CDL landing bucket. Otherwise, carry on to complete this step...
+
 ##### Create a New View Specific to the CDL Input Format
 
-Run the following query to create this new View via Amazon Athena:
+Run the following query to create this new View via Amazon Athena.
 
 ```
 CREATE OR REPLACE VIEW processed_ridescdl_view AS
@@ -659,7 +665,7 @@ Once you run this query, the automated data pipeline will take a few minutes to 
 If you go to AWS Step Functions and open the **cdl-data-pipeline-sfn** state machine, you should see an execution corresponding to the current date and time.
 
 If you click on that execution, you should see the workflow progressing and it will look like the following if it runs successfully.
-(depending on how fast you go through this step, the workflow may be complete already)
+(Depending on how fast you go through this step, the workflow may be complete already, as shown below.)
 
 ![Step Functions Execution Graph View for cdl-data-pipeline-sfn](assets/imgs/stepfunctions_cdl-data-pipeline-sfn.png)
 
@@ -699,8 +705,8 @@ ORDER BY 1,2,3;
 
 ![Athena Query CDL Activity All 2022](assets/imgs/athena_query-cdlactivity-all2022.png)
 
-You might recognize that these emissions totals are very similar to what we queried in Step 04-C Quert 4b (repeated below). The slight differences would be due to slightly differing emissions factors being used between the sources from our ad-hoc queries and the emissions factors table included within the AWS CDL repo. You can view (and edit) the following AWS CDL CSV file before deployment, if you wanted to make any emissions factors changes:
-/tools/reference-databases/ghg_emissionsfactor_comprehensive_adapted.csv
+You might recognize that these emissions totals are very similar to what we queried in Step 04-C Query 4b (repeated below). The slight differences would be due to slightly differing emissions factors being used between the sources from our ad-hoc queries and the emissions factors table included within the AWS CDL repo. To view (or edit) AWS CDL emissions factors before deployment, the emissions factors input file is:\
+/tools/reference-databases/ghg_emissionsfactor_comprehensive_adapted.csv ([View on GitHub...](https://github.com/aws-solutions-library-samples/guidance-for-carbon-data-lake-on-aws/blob/main/tools/reference-databases/ghg_emissionsfactor_comprehensive_adapted.csv))
 
 ```
 SELECT  *
