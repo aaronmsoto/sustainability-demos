@@ -300,7 +300,7 @@ LIMIT 100;
 
 ### Step 03-C: View Transformed Data in Amazon S3
 
-We can also go view the physical data files that were created in Amazon S3 in an efficiency parquet format that is both partitioned and compressed.
+We can also go view the physical data files that were created in Amazon S3 in an efficient parquet format that is both partitioned and compressed.
 
 Use the [S3 Console](https://s3.console.aws.amazon.com/s3/home) to navigate to your bucket and then go within the folder specified as the **external_location** within your above CTAS query.\
 eg: navigate to s3://YOURBUCKETNAME/TRANSFORMED/ridesdetail/
@@ -490,7 +490,7 @@ An example Excel visualization for our query analytics is below. [Download Excel
 
 Large-scale fleet conversions can (and should) take years due to the relatively long lifespans of vehicles. However, many fleet management organizations are beginning to think about fleet optimizations as they relate to cost and carbon reductions.
 
-In this demo, we'll quantify the cost and carbon savings for a proposed fleet optimization project to convert our 100 least efficient gas vehicles to BEV.
+In this demo, we'll quantify the cost and carbon savings for a proposed fleet optimization project to convert our least efficient bottom half of gas vehicles to BEV (ie: gas vehicles with mpg less than our 18.14mpg average). To do this, will quantify avoided gas-based emissions from removing this bottom half of vehicles and quantify the "replacement" electricity emissions if all those miles were now driven by BEV vehicles with the average 2.73 mi/kwh efficiency. We'll also include an analysis on cost differences using the same technique of quantifying avoided gas costs and replacement electricity costs.
 
 Use the following query to create a project analysis view.
 
