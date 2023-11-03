@@ -14,7 +14,7 @@ Transportation is the second leading cause of global greenhouse gas (GHG) emissi
 
 This carbon accounting demo will work through a scenario that processes a massive fleet dataset to understand carbon and cost tradeoffs and how one might estimate the benefits of potential fleet decarbonization projects.
 
-![Global GHG Emissions by Sector, 2019](assets/imgs/dataviz_ghg-emissions-by-sector-2019.png)
+[![Global GHG Emissions by Sector, 2019](assets/imgs/dataviz_ghg-emissions-by-sector-2019.png)](https://ourworldindata.org/emissions-by-sector)
 
 ### Demo Scenario: Situation, Task, Actions, Results, and Impact...
 **Situation:** Imagine we run a massive fleet organization (eg: NYC YellowCab) and want to analyze fleet characteristics by vehicle types, efficiency differences, fuel costs, and carbon dioxide (CO2) emissions.\
