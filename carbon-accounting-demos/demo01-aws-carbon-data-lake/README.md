@@ -10,7 +10,7 @@
 
 ## Overview
 
-Transportation is the second leading cause of global greenhouse gas (GHG) emissions accounting for 8.43 billion MT of carbon dioxide equivalent emissions (CO2e), behind only electricity and heat generation. Most of the transportation emissions are attributable to road transportation from cars and trucks. Fleet managers responsible for large fleets need to understand their fleet emissions and how to potentially cut carbon and costs from these fleets over time. The growing transition from fossil fuel based vehicles towards battery-electric vehicles (BEV) will help reduce emissions and drive down operational costs over time. Fleet managers should look to quantify the expected effects of potential fleet decarbonization projects as they relate to quantifiable carbon and cost reduction.
+Transportation is the second leading cause of global greenhouse gas (GHG) emissions accounting for 8.43 billion MT of carbon dioxide equivalent emissions (CO2e), behind only electricity and heat generation. Most of the transportation emissions are attributable to road transportation from cars and trucks. Fleet managers responsible for large fleets need to understand their fleet emissions and how to potentially cut carbon and costs from these fleets over time. The growing transition from fossil fuel based vehicles towards battery-electric vehicles (BEV) will help reduce emissions and drive down operational costs over time. Fleet managers should look to evaluate the expected benefits of potential fleet decarbonization projects as they relate to quantifiable carbon and cost reduction.
 
 This carbon accounting demo will work through a scenario that processes a massive fleet dataset to understand carbon and cost tradeoffs and how one might estimate the benefits of potential fleet decarbonization projects.
 
@@ -38,6 +38,9 @@ Here are example Excel visualizations for some of the analytics you can visualiz
 **Demo Architecture Created...**
 
 ![Demo Architecture Overview](assets/imgs/demo01_architecture-overview.png)
+
+**Expected Costs and Other Notes**
+Performing the steps in this demo will result in costs expected to be less than $1. This demo is for instructional purposes only and the open-source NYC YellowCab data is augmented with fictitious vehicle data for the purposes of the demo.
 
 ## Section 01: S3 Bucket Setup and Source Data Transfer to LANDING Zone
 **Source Data:** New York City YellowCab ride records for 2022\
