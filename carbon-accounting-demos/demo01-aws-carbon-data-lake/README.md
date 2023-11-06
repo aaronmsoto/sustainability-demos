@@ -7,6 +7,7 @@
 * [Section 03: Creating Transformed Zone Lookup Table and Rides Data](#section-03-creating-transformed-zone-lookup-table-and-rides-data)
 * [Section 04: Creating Processed Zone Aggregated Rides Data](#section-04-creating-processed-zone-aggregated-rides-data)
 * [Section 05: Using AWS Carbon Data Lake (CDL) for Emissions Estimates](#section-05-using-aws-carbon-data-lake-cdl-for-emissions-estimates)
+* [Connect...](#connect)
 
 ## Overview
 
@@ -769,3 +770,5 @@ In this section we used AWS Carbon Data Lake as our serverless data automation p
 * Queried the CDL output data for emissions totals and monthly breakdown
 * Downloaded our final query results and created a PivotTable and Chart
 
+## Connect
+Please reach out on [LinkedIn](https://www.linkedin.com/in/aaronsoto/) to connect or discuss sustainability, provide feedback, or suggest corrections. Thanks!
